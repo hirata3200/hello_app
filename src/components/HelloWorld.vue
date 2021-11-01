@@ -2,49 +2,70 @@
   <div class="alert alert-primary">
     <h2>{{ title }}</h2>
         <p>{{ message }}</p>
-    <hr>
-    <div class="alert alert-light">
-      <h3>Inner Slot</h3>
-      <ol class="list-group text-left">
-        <slot/>
-      </ol>
-    </div>
+        <button class="btn btn-primary m-3" v-on:click="doAction">
+          {{btn}}
+        </button>
+        <transition name="transit">
+          <p v-if="flg" class="alert alert-light h5">
+            Transition context!
+          </p>
+        </transition>
   </div>
 </template>
 
 <script>
 export default {
   name: "HelloWorld",
-  data: function() {
+  data() {
     return {
-      title: 'Slot',
-      message: 'This is message.',
+      title: 'Trans&Anim',
+      message: 'This is Transition sample!',
+      flg:true,
+      btn:'Show/Hide',
     }
+  },
+  methods: {
+    doAction(){
+      this.flg = !this.flg
+    },
   },
 }
 </script>
 
 <style>
-pre {
-  font-size: 16pt;
-  line-height: 1.25;
+.trans {
+  background-color: black;
+  color: white;
+  padding: 10px;
+  font-size: 20pt;
 }
-div.out {
-  padding: 0px;
-  background-color: #eee;
-  width: 300px;
-  height: 200px;
+
+.transit-enter-active {
+  transition: opacity 0.5s;
 }
-div.mid {
-  padding: 0px;
-  background-color: #ddd;
-  width: 200px;
-  height: 170px;
+
+.transit-leave-active {
+  transition: opacity 5.0s;
 }
-div.in {
-  padding: 0px;
-  background-color: #ccc;
-  width: 100px;
-  height: 140px;
+
+.transit-enter {
+  opacity: 0;
 }
+
+.transit-enter-from {
+  opacity: 0;
+}
+
+.transit-enter-to {
+  opacity: 1.0;
+}
+
+.transit-leave {
+  opacity: 1.0;
+}
+
+.transit-leave-to {
+  opacity: 0;
+}
+
 </style>
